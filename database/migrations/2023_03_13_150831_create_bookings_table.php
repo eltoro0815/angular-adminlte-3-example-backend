@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->decimal('amount', 15, 2);
             $table->timestamps();
         });
     }
