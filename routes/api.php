@@ -3,8 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use \App\Models\Booking;
-use \App\Http\Resources\BookingCollection;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +20,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('bookings', function()
-    {
-        return new BookingCollection(Booking::all());
-    }
-);
+Route::apiResource('bookings', BookingController::class);
 
 

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\BookingResource;
 
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -11,7 +13,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        return BookingResource::collection(Booking::all());
     }
 
     /**
@@ -19,30 +21,35 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $booking = Booking::create($request->all());
+
+        return new BookingResource($booking);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Booking $booking)
     {
-        //
+        return new BookingResource($booking);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Booking $booking)
     {
-        //
+        $booking->update($request->all());
+        return new BookingResource($booking);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+
+        return response()->json(null, 204);
     }
 }
